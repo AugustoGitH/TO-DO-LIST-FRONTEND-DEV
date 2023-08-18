@@ -5,7 +5,7 @@ import './index.css'
 import { QueryClientProvider } from 'react-query'
 import { queryClient } from './services/queryClient.ts'
 
-import TodoListProvider from './contexts/todoListContext/index.tsx'
+import TodoListProvider from './contexts/toDoListContext/index.tsx'
 
 
 

@@ -19,7 +19,7 @@ const deleteTaskService = async (id: string): Promise<IDeleteTaskService> => {
     return {
       success: true,
       idTaskDeleted: null,
-      status: error instanceof AxiosError ? error.status || 500 : 500,
+      status: error instanceof AxiosError ? error.response?.status || 500 : 500,
     };
   }
 };

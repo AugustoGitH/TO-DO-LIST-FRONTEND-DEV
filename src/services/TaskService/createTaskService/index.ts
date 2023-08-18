@@ -18,7 +18,7 @@ const createTaskService = async (name: string): Promise<ICreateTaskService> => {
     return {
       success: true,
       taskCreated: null,
-      status: error instanceof AxiosError ? error.status || 500 : 500,
+      status: error instanceof AxiosError ? error.response?.status || 500 : 500,
     };
   }
 };

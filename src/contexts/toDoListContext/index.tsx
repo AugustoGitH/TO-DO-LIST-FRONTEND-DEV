@@ -22,6 +22,7 @@ const ToDoListProvider = ({ children }: ITasksProviderProps): JSX.Element => {
 
   useEffect(() => {
     if (dataResponseGetTasks?.tasks) {
+
       setTasks(dataResponseGetTasks?.tasks)
     }
   }, [dataResponseGetTasks])
@@ -33,11 +34,13 @@ const ToDoListProvider = ({ children }: ITasksProviderProps): JSX.Element => {
     if (modeEditabled && taskBeingEdited) {
       const { success, status } = await TaskService.update({ name }, taskBeingEdited.id)
 
-      if (!success) { return }
-      if (status === 401) {
-        setShowCardAuth(true)
+      if (!success) {
+        if (status === 401) {
+          setShowCardAuth(true)
+        }
         return
       }
+
 
       setTasks(prevTasks => {
         const taskSelected = tasks.find(task => task.id === taskBeingEdited.id)
@@ -53,22 +56,27 @@ const ToDoListProvider = ({ children }: ITasksProviderProps): JSX.Element => {
     }
 
     const { success, taskCreated, status } = await TaskService.create(name)
-    if (!success || !taskCreated) return
-    if (status === 401) {
-      setShowCardAuth(true)
+    if (!success || !taskCreated) {
+      console.log(status)
+      if (status === 401) {
+        setShowCardAuth(true)
+      }
       return
     }
+
     setTasks(prevTasks => [taskCreated, ...prevTasks])
 
   }
 
   const deleteTask = async (id: string) => {
     const { success, idTaskDeleted, status } = await TaskService.delete(id)
-    if (!success) return
-    if (status === 401) {
-      setShowCardAuth(true)
+    if (!success) {
+      if (status === 401) {
+        setShowCardAuth(true)
+      }
       return
     }
+
     setTasks(prevTasks => prevTasks.filter(task => task.id !== idTaskDeleted))
   }
 
@@ -82,11 +90,13 @@ const ToDoListProvider = ({ children }: ITasksProviderProps): JSX.Element => {
     const taskSelected = tasks.find(task => task.id === id)
     if (taskSelected) {
       const { success, status } = await TaskService.update({ wasFinished: !taskSelected.wasFinished }, taskSelected.id)
-      if (!success) return
-      if (status === 401) {
-        setShowCardAuth(true)
+      if (!success) {
+        if (status === 401) {
+          setShowCardAuth(true)
+        }
         return
       }
+
       setTasks(prevTasks => {
         const positionTaskSelected = prevTasks.map(task => task.id).indexOf(id)
         if (!taskSelected || positionTaskSelected === -1) return prevTasks

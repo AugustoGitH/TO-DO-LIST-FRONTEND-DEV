@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import * as S from "./styles"
-import { ToDoListContext } from "../../../../contexts/todoListContext"
+import { ToDoListContext } from "../../../../contexts/toDoListContext"
 import { ITask } from "../../../../types/ITask"
 import TitleItem from "../../../TitleItem"
 import sortTasks from "../../../../utils/sortTasks"

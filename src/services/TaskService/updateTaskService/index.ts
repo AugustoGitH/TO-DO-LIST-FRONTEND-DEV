@@ -28,7 +28,7 @@ const updateTaskService = async (
     return {
       success: true,
       idTaskUpdated: null,
-      status: error instanceof AxiosError ? error.status || 500 : 500,
+      status: error instanceof AxiosError ? error.response?.status || 500 : 500,
     };
   }
 };

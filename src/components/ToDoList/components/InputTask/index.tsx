@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import * as S from "./styles"
-import { ToDoListContext } from "../../../../contexts/todoListContext"
+import { ToDoListContext } from "../../../../contexts/toDoListContext"
 
 
 
